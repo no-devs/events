@@ -7,9 +7,6 @@
 <h1>Important Notice</h1>
 If you rename a script, it will no longer work properly
 
-<h1>Important Notice</h1>
-If you rename a script, it will no longer work properly
-
 <h1>Features</h1>
 <ul>
   <li>Player bans for all identifiers and `Player Tokens`</li>
