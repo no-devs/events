@@ -30,7 +30,7 @@ eventName: A string representing the event name to call on the server.
 <h4>Optional arguments</h4>
 ...: Any additional data that should be passed along.
 
-<h3>Example</h3>
+<h4>Example</h4>
 
 ```lua
 exports["secured"]:call("Test", "test1")
@@ -47,7 +47,7 @@ exports["secured"]:handler(eventName, callback)
 <br>
 <b>callback</b>: The function to run when the event is called.
 
-<h3>Example</h3>
+<h4>Example</h4>
 
 ```lua
 exports["secured"]:handler("Test", function(arg)
