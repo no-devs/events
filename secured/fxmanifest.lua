@@ -7,5 +7,5 @@ server_scripts {
     "sv_config.lua"
 }
 
-fx_version 'adamant'
-game 'gta5
+fx_version "adamant"
+game "gta5"

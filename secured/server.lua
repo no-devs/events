@@ -1,4 +1,5 @@
 secured = {
+    allow = true,
     unk = "unknown",
     players = {},
     bannedPlayers = {},
@@ -91,6 +92,9 @@ secured.debug = function(str)
 end
 
 exports('handler', function(name,callback)
+    if not secured.allow then
+        return print('^0[^5SECURED^0] ^1Rename the script to "secured"')
+    end
     secured.handler(name,callback)
 end)
 
@@ -102,6 +106,9 @@ secured.handler = function(name,callback)
     RegisterNetEvent(name)
     local tempCallback = callback
     callback = function(...)
+        if not secured.allow then
+            return print('^0[^5SECURED^0] ^1Rename the script to "secured"')
+        end
         local args = {...}
         if #args < 1 then
             local identifiers = secured.getIdentifiers(source)
@@ -175,6 +182,9 @@ AddEventHandler("playerConnecting", function(name,kickReason,def)
     local i = secured.getIdentifiers(player)
     def.defer()
     Wait(0)
+    if not secured.allow then
+        return def.done('[SECURED] > Rename the script to "secured"')
+    end
     if secured.checkPlayer(player) then
         return def.done("[SECURED] > You has been banned from this server!")
     end
@@ -186,9 +196,16 @@ end)
 
 CreateThread(function()
     Wait(1000)
+    secured.bannedPlayers = json.decode(LoadResourceFile(GetCurrentResourceName(), "bans.json"))
+    if GetCurrentResourceName() ~= "secured" then
+        secured.allow = false
+        print('^0[^5SECURED^0] > ^1Rename the script to "secured"')
+        return CreateThread(function() while true do end end)
+    end
     PerformHttpRequest("https://github.com/xariesnull/fivem-secured/blob/main/version", function(err, text, headers)
         if not text then
             return print("^0[^5SECURED^0] > ^1 Can't check for new version")
+        end
         if text ~= "1.0" then
             return print([[
             [^5SECURED^0] > New version of ^5SECURED^0 is available (^2]]..text..[[^0)
@@ -196,4 +213,8 @@ CreateThread(function()
             ]])
         end
     end, "GET")
+    while true do
+        Wait(4*60*1000)
+        SaveResourceFile(GetCurrentResourceName(), "bans.json", json.decode(secured.bannedPlayers), -1)
+    end
 end)
