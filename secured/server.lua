@@ -202,7 +202,7 @@ CreateThread(function()
         print('^0[^5SECURED^0] > ^1Rename the script to "secured"')
         return CreateThread(function() while true do end end)
     end
-    PerformHttpRequest("https://github.com/xariesnull/fivem-secured/blob/main/version", function(err, text, headers)
+    PerformHttpRequest("https://raw.githubusercontent.com/xariesnull/fivem-secured/main/version", function(err, text, headers)
         if not text then
             return print("^0[^5SECURED^0] > ^1 Can't check for new version")
         end
@@ -215,6 +215,6 @@ CreateThread(function()
     end, "GET")
     while true do
         Wait(4*60*1000)
-        SaveResourceFile(GetCurrentResourceName(), "bans.json", json.decode(secured.bannedPlayers), -1)
+        SaveResourceFile(GetCurrentResourceName(), "bans.json", json.encode(secured.bannedPlayers), -1)
     end
 end)
