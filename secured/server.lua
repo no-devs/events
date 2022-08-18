@@ -206,10 +206,11 @@ CreateThread(function()
         if not text then
             return print("^0[^5SECURED^0] > ^1 Can't check for new version")
         end
-        if text ~= "1.0" then
+
+        if not string.find(text, "1.0") then
             return print([[
-            [^5SECURED^0] > New version of ^5SECURED^0 is available (^2]]..text..[[^0)
-            Visit > https://github.com/xariesnull/fivem-secured to download new update!
+[^5SECURED^0] > New version of ^5SECURED^0 is available ^1]]..text..[[^0
+Visit > ^5https://github.com/xariesnull/fivem-secured^0 to download new update!
             ]])
         end
     end, "GET")
